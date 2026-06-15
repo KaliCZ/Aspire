@@ -56,7 +56,7 @@ using (var ports = await AspirePortReservation.ReserveAsync(2))   // 2 extra por
     builder.AddRedis("redis", port: ports.ExtraPorts[0]);
     builder.AddRabbitMQ("rabbit", port: ports.ExtraPorts[1]);
 
-    // Aspire logs the dashboard URL itself on startup, but not your extra ports — so log those:
+    // Aspire logs the dashboard URL itself on startup, but not your extra ports — log those if you want quick links from the CLI:
     Console.WriteLine($"redis → {ports.ExtraPorts[0]}, rabbit → {ports.ExtraPorts[1]}");
 
     app = builder.Build();
