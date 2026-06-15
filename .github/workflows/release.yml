@@ -57,12 +57,14 @@ jobs:
 
     # Trusted Publishing: exchange the GitHub OIDC token for a short-lived nuget.org
     # key — no long-lived secret. Requires a publishing policy on nuget.org bound to
-    # this repo + workflow + environment, under the account named by vars.NUGET_USER.
+    # this repo + workflow + environment, under this account. `user` is just the
+    # nuget.org account identifier (public, not a credential); the OIDC claims are
+    # what's verified.
     - name: NuGet login (Trusted Publishing)
       id: nuget-login
       uses: NuGet/login@v1
       with:
-        user: ${{ vars.NUGET_USER }}
+        user: Kalicz
 
     - name: Publish package
       run: dotnet nuget push ./out/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
